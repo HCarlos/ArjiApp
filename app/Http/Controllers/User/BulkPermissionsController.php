@@ -3,30 +3,26 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-
-use App\Models\Role;
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class BulkUserEntitiesController extends Controller
-{
+class BulkPermissionsController extends Controller{
+
     public function edit(){
 
         $users = User::query()->select('id', 'username')->get()->toArray();
 
-        $allDatas = Role::query()->select('id', 'name as data')->get()->toArray();
-
-//        dd( $users, $allDatas );
-//        dd( $this->getUserRolesList() );
+        $allDatas = Permission::query()->select('id', 'name as data')->get()->toArray();
 
         return Inertia::render('Users/Asignaciones/BulkUserEntitiesAssignment', [
             'users' => $users,
             'allDatas' => $allDatas,
-            'assignedDatasByUser' => $this->getUserRolesList(),
-            'addUrl' => '/bulk-roles/assign-partial',
-            'removeUrl' => '/bulk-roles/remove-partial',
-            'tableName' => 'Roles',
+            'assignedDatasByUser' => $this->getUserPermissionsList(),
+            'addUrl' => '/bulk-permisos/assign-partial',
+            'removeUrl' => '/bulk-permisos/remove-partial',
+            'tableName' => 'Permisos',
         ]);
 
     }
@@ -40,17 +36,15 @@ class BulkUserEntitiesController extends Controller
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'datas'   => 'required|array',
-            'datas.*' => 'exists:roles,id',
+            'datas.*' => 'exists:permissions,id',
         ]);
 
         $user = User::findOrFail($validated['user_id']);
-        $user->roles()->syncWithoutDetaching($validated['datas']);
-
-//        dd( $this->getUserRolesList() );
+        $user->permissions()->syncWithoutDetaching($validated['datas']);
 
         return response()->json([
-            'message' => 'Roles removidos correctamente',
-            'data' => $this->getUserRolesList(),
+            'message' => 'Permisos removidos correctamente',
+            'data' => $this->getUserPermissionsList(),
         ], 200);
 
 
@@ -64,34 +58,30 @@ class BulkUserEntitiesController extends Controller
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'datas'   => 'required|array',
-            'datas.*' => 'exists:roles,id',
+            'datas.*' => 'exists:permissions,id',
         ]);
-
-//        dd($validated['datas']);
 
         $user = User::findOrFail($validated['user_id']);
         $datasToDetach = array_map('intval', $validated['datas']);
-        $user->roles()->detach($datasToDetach);
-
-//        dd( $this->getUserRolesList() );
+        $user->permissions()->detach($datasToDetach);
 
         // Sin redirect, simplemente JSON:
         return response()->json([
-            'message' => 'Roles removidos correctamente',
-            'data' => $this->getUserRolesList(),
+            'message' => 'Permisos removidos correctamente',
+            'data' => $this->getUserPermissionsList(),
         ], 200);
 
     }
 
 
-    public function getUserRolesList(){
-        $users = User::with('roles:id,name')->get(['id']);
+    public function getUserPermissionsList(){
+        $users = User::with('permissions:id,name')->get(['id']);
         $assignedDatasByUser = [];
 
         foreach ($users as $user) {
             // Asegurar que cada item tenga 'id' no 'data_id'
-            $assignedDatasByUser[$user->id] = $user->roles->map(function ($role) {
-                return ['id' => $role->id, 'name' => $role->name];
+            $assignedDatasByUser[$user->id] = $user->permissions->map(function ($permission) {
+                return ['id' => $permission->id, 'name' => $permission->name];
             })->toArray();
         }
 

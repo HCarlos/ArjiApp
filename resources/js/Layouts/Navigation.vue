@@ -77,7 +77,7 @@
             <ul v-show="showingTwoLevelMenu" class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                 aria-label="submenu">
                 <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
-                    <NavLink :href="route('about')" :active="route().current('about')">
+                    <NavLink :href="route('bulk.permisos.edit')" :active="route().current('bulk.permisos.edit')">
                         <template #icon>
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                  stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
