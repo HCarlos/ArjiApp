@@ -81,96 +81,98 @@ const removeDatas = async () => {
     <Head :title="`Asignación de ${tableName}`" />
 
     <AuthenticatedLayout>
+
         <template #header>
-            <h1 class="text-2xl font-bold text-gray-800">
-                Asignación de {{ tableName }}
-            </h1>
+            Asignación de {{tableName}}
         </template>
 
-        <div class="container">
-            <!-- Selector de usuario nativo mejorado -->
-            <div class="mb-8">
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                    Seleccionar usuario:
-                </label>
-                <select
-                    v-model="selectedUserId"
-                    class="select-style"
-                >
-                    <option :value="null">-- Seleccione un usuario --</option>
-                    <option
-                        v-for="user in users"
-                        :key="user.id"
-                        :value="user.id"
-                    >
-                        {{ user.username }} (ID: {{ user.id }})
-                    </option>
-                </select>
-            </div>
 
-            <div v-if="selectedUserId" class="flex gap-6 items-stretch">
-                <!-- Panel disponibles -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <h3 class="text-lg font-semibold">{{ tableName }} disponibles ({{ availableDatas.length }})</h3>
-                    </div>
-                    <div class="list-container">
-                        <div
-                            v-for="item in availableDatas"
-                            :key="item.id"
-                            class="list-item"
+        <div class="p-4 bg-white rounded-lg shadow-xs">
+            <div class="contenedor">
+                <!-- Selector de usuario nativo mejorado -->
+                <div class="mb-8">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Seleccionar usuario:
+                    </label>
+                    <select
+                        v-model="selectedUserId"
+                        class="select-style"
+                    >
+                        <option :value="null">-- Seleccione un usuario --</option>
+                        <option
+                            v-for="user in users"
+                            :key="user.id"
+                            :value="user.id"
                         >
-                            <label class="flex items-center w-full cursor-pointer space-x-3">
-                                <input
-                                    type="checkbox"
-                                    :value="item.id"
-                                    v-model="selectedAvailable"
-                                    class="form-checkbox h-5 w-5 text-blue-600 rounded border-gray-300"
-                                >
-                                <span class="text-gray-700">{{ item.data }}</span>
-                            </label>
+                            {{ user.username }} (ID: {{ user.id }})
+                        </option>
+                    </select>
+                </div>
+
+                <div v-if="selectedUserId" class="flex gap-6 items-stretch">
+                    <!-- Panel disponibles -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="text-lg font-semibold">{{ tableName }} disponibles ({{ availableDatas.length }})</h3>
+                        </div>
+                        <div class="list-contenedor">
+                            <div
+                                v-for="item in availableDatas"
+                                :key="item.id"
+                                class="list-item"
+                            >
+                                <label class="flex items-center w-full cursor-pointer space-x-3">
+                                    <input
+                                        type="checkbox"
+                                        :value="item.id"
+                                        v-model="selectedAvailable"
+                                        class="form-checkbox h-5 w-5 text-blue-600 rounded border-gray-300"
+                                    >
+                                    <span class="text-gray-700">{{ item.data }}</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Botones de acción -->
-                <div class="transfer-buttons">
-                    <button
-                        @click="addDatas"
-                        :disabled="!selectedAvailable.length"
-                        class="btn-action bg-emerald-600 hover:bg-emerald-700 text-white"
-                    >
-                        Agregar →
-                    </button>
-                    <button
-                        @click="removeDatas"
-                        :disabled="!selectedAssigned.length"
-                        class="btn-action bg-rose-600 hover:bg-rose-700 text-white"
-                    >
-                        ← Quitar
-                    </button>
-                </div>
-
-                <!-- Panel asignados -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <h3 class="text-lg font-semibold">{{ tableName }} asignados ({{ assignedDatas.length }})</h3>
-                    </div>
-                    <div class="list-container">
-                        <div
-                            v-for="item in assignedDatas"
-                            :key="item.id"
-                            class="list-item"
+                    <!-- Botones de acción -->
+                    <div class="transfer-buttons">
+                        <button
+                            @click="addDatas"
+                            :disabled="!selectedAvailable.length"
+                            class="btn-action bg-emerald-600 hover:bg-emerald-700 text-white"
                         >
-                            <label class="flex items-center w-full cursor-pointer space-x-3">
-                                <input
-                                    type="checkbox"
-                                    :value="item.id"
-                                    v-model="selectedAssigned"
-                                    class="form-checkbox h-5 w-5 text-blue-600 rounded border-gray-300"
-                                >
-                                <span class="text-gray-700">{{ item.name }}</span>
-                            </label>
+                            Agregar →
+                        </button>
+                        <button
+                            @click="removeDatas"
+                            :disabled="!selectedAssigned.length"
+                            class="btn-action bg-rose-600 hover:bg-rose-700 text-white"
+                        >
+                            ← Quitar
+                        </button>
+                    </div>
+
+                    <!-- Panel asignados -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="text-lg font-semibold">{{ tableName }} asignados ({{ assignedDatas.length }})</h3>
+                        </div>
+                        <div class="list-contenedor">
+                            <div
+                                v-for="item in assignedDatas"
+                                :key="item.id"
+                                class="list-item"
+                            >
+                                <label class="flex items-center w-full cursor-pointer space-x-3">
+                                    <input
+                                        type="checkbox"
+                                        :value="item.id"
+                                        v-model="selectedAssigned"
+                                        class="form-checkbox h-5 w-5 text-blue-600 rounded border-gray-300"
+                                    >
+                                    <span class="text-gray-700">{{ item.name }}</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
