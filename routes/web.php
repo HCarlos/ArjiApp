@@ -37,7 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/about', fn () => Inertia::render('About'))->name('about');
 
     Route::get('users', [UserController::class, 'index'])->name('users.index');
-    Route::get('alumnos', [UserController::class, 'alumnosIndex'])->name('alumnos.index');
+    Route::post('users.store', [UserController::class, 'store'])->name('users.store');
+    Route::put('users.update/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('users.delete/{user}', [UserController::class, 'destroy'])->name('users.delete');
+
+    Route::put('alumnos/', [UserController::class, 'alumnosIndex'])->name('alumnos.index');
 
 // Vista principal donde se muestra el componente de asignación masiva de roles
     Route::get('/bulk-roles', [BulkUserRolesController::class, 'edit'])->name('bulk.roles.edit');

@@ -1,0 +1,60 @@
+.z-21{
+    z-index: 21;
+}
+.z-22{
+    z-index: 22;
+}
+.z-23{
+    z-index: 23;
+}
+.z-24{
+    z-index: 24;
+}
+.z-25{
+    z-index: 25;
+}
+.td-buttons {
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+}
+
+.icon-button-new {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+.icon-button-new i {
+    font-size: 20px; /* Ajusta el tamaño del ícono si lo necesitas */
+    color: #5b0aa0; /* Ajusta el color del ícono (opcional) */
+}
+
+.icon-button-trash {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+.icon-button-trash i {
+    font-size: 20px; /* Ajusta el tamaño del ícono si lo necesitas */
+    color: #870606; /* Ajusta el color del ícono (opcional) */
+}
+
+.icon-button-edit {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+.icon-button-edit i {
+    font-size: 20px; /* Ajusta el tamaño del ícono si lo necesitas */
+    color: #085108; /* Ajusta el color del ícono (opcional) */
+}
+
+.icon-button-trash, .icon-button-edit {
+    transition: transform 0.2s ease; /* Suaviza la transición para que el cambio sea más fluido */
+}
+
+.icon-button-trash:hover, .icon-button-edit:hover {
+    transform: scale(1.1); /* Aumenta el tamaño al 110% */
+}

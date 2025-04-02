@@ -13,12 +13,15 @@ class BulkUserRolesController extends Controller
 {
     public function edit(){
 
-        $users = User::query()->select('id', 'username')->get()->toArray();
+        $users = User::query()
+            ->orderBy('ap_paterno')
+            ->orderBy('ap_materno')
+            ->orderBy('nombre')
+            ->get()
+            ->toArray();
+
 
         $allDatas = Role::query()->select('id', 'name as data')->get()->toArray();
-
-//        dd( $users, $allDatas );
-//        dd( $this->getUserRolesList() );
 
         return Inertia::render('Users/Asignaciones/BulkUserEntitiesAssignment', [
             'users' => $users,

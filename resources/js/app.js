@@ -5,15 +5,16 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
-import $ from 'jquery'
-// window.$ = $
-// window.jQuery = $
-window.$ = window.jQuery = $;
+// import 'flowbite';
 
-import 'select2/dist/css/select2.css'
-import 'select2'
+// import $ from 'jquery';
+// window.$ = $;
+// window.jQuery = $;
 
+// import 'select2/dist/js/select2.min.js';
+// import 'select2/dist/css/select2.min.css';
 
+// import VuelidatePlugin from '@vuelidate/core';
 
 // import { useFavicon } from '@vueuse/core'
 

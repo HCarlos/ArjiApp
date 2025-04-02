@@ -10,6 +10,7 @@
         "ahmedsaoud31/laravel-permission-to-vuejs": "dev-master",
         "inertiajs/inertia-laravel": "^2.0",
         "intervention/image": "^3.11",
+        "laravel-lang/lang": "^15.19",
         "laravel/breeze": "^2.0",
         "laravel/framework": "^11.31",
         "laravel/sanctum": "^4.0",

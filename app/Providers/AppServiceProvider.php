@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void{
-        Vite::prefetch(concurrency: 3);
+        Vite::prefetch(concurrency: 30);
 
 //        Validator::extend('username', function ($attribute, $value, $parameters, $validator) {
 //            // Lógica de validación, ejemplo:

@@ -6,13 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class BulkPermissionsController extends Controller{
 
     public function edit(){
 
-        $users = User::query()->select('id', 'username')->get()->toArray();
+        $users = User::query()
+            ->orderBy('ap_paterno')
+            ->orderBy('ap_materno')
+            ->orderBy('nombre')
+            ->get()
+            ->toArray();
 
         $allDatas = Permission::query()->select('id', 'name as data')->get()->toArray();
 

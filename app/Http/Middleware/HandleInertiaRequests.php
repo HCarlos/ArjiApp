@@ -43,6 +43,7 @@ class HandleInertiaRequests extends Middleware
                 ];
             },
             'showingMobileMenu' => false,
+            'errors' => $this->resolveValidationErrors($request),
         ]);
     }
 }

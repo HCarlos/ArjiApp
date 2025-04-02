@@ -21,8 +21,6 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles, HasPermissions, LaravelPermissionToVueJS;
 
-//    use HasApiTokens, HasFactory, Notifiable
-
     use UserImport, UserAttributes, SoftDeletes;
     use HasApiTokens, HasFactory, Notifiable;
     protected $guard_name = 'web';
@@ -43,7 +41,7 @@ class User extends Authenticatable
         'username', 'email', 'password',
         'nombre','ap_paterno','ap_materno',
         'curp','emails','celulares','telefonos',
-        'fecha_nacimiento','genero', 'lugar_nacimiento',
+        'fecha_nacimiento','genero',
         'root','filename','filename_png','filename_thumb',
         'empresa_id','status_user','ip','host','searchtext_user',
         'logged','logged_at','logout_at', 'user_mig_id','email_verified_at',
@@ -72,8 +70,13 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'fecha_nacimiento' => 'date'
         ];
     }
+//'emails' => 'array',
+//'celulares' => 'array',
+//'telefonos' => 'array',
+//'domicilio' => 'array',
 
     public function scopeSearch($query, $search){
         if (!$search || $search == "" || $search == null) return $query;

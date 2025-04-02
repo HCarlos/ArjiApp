@@ -1,9 +1,10 @@
 <script setup>
 // --- IMPORTS ---
-import { ref, computed, reactive } from 'vue';
+import {ref, computed, reactive, onBeforeUnmount, watch, onMounted} from 'vue';
 import axios from 'axios';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import "/resources/css/User/asignaciones_v1.css";
+import "/resources/css/User/select2_v1.css";
 
 // --- PROPS ---
 const props = defineProps({
@@ -13,6 +14,7 @@ const props = defineProps({
     tableName: String,          // Nombre de la entidad (ej: "Roles")
     addUrl: String,             // Endpoint para agregar
     removeUrl: String,          // Endpoint para remover
+    totalAlumnos: Number        // Total de alumnos
 });
 
 // --- REACTIVE STATE ---
@@ -75,6 +77,33 @@ const removeDatas = async () => {
         alert('Error al remover: ' + error.response?.data?.message || error.message);
     }
 };
+
+
+// Inicia cóódigo de select2
+const selectUser = ref(null);
+onMounted(() => {
+
+    // Inicializa select2 sobre el elemento referenciado
+    $(selectUser.value).select2();
+
+    // Cuando el usuario cambia la selección, actualiza la variable reactiva
+    $(selectUser.value).on('change', function () {
+        selectedUserId.value = $(this).val();
+    });
+
+});
+
+// Opcional: si actualizas selectedUserId desde Vue, refresca select2
+watch(selectedUserId, (newValue) => {
+    $(selectUser.value).val(newValue).trigger('change');
+});
+
+// Al desmontar el componente, destruye la instancia de select2
+onBeforeUnmount(() => {
+    $(selectUser.value).select2('destroy');
+});
+// Finaliza código de select2
+
 </script>
 
 <template>
@@ -94,9 +123,11 @@ const removeDatas = async () => {
                     <label class="block text-sm font-medium text-gray-700 mb-2">
                         Seleccionar usuario:
                     </label>
+
                     <select
+                        ref="selectUser"
                         v-model="selectedUserId"
-                        class="select-style"
+                        class="select-style user-select"
                     >
                         <option :value="null">-- Seleccione un usuario --</option>
                         <option
@@ -104,9 +135,15 @@ const removeDatas = async () => {
                             :key="user.id"
                             :value="user.id"
                         >
-                            {{ user.username }} (ID: {{ user.id }})
+                            {{ user.full_name }} - {{ user.username }}
                         </option>
                     </select>
+
+<!--                    <UserSelect2-->
+<!--                        :users="users"-->
+<!--                        :initialSelectedUserId="selectedUserId"-->
+<!--                        v-model="selectedUserId" class="select-style"/>-->
+
                 </div>
 
                 <div v-if="selectedUserId" class="flex gap-6 items-stretch">
@@ -128,7 +165,7 @@ const removeDatas = async () => {
                                         v-model="selectedAvailable"
                                         class="form-checkbox h-5 w-5 text-blue-600 rounded border-gray-300"
                                     >
-                                    <span class="text-gray-700">{{ item.data }}</span>
+                                    <span class="text-gray-700">{{ item.data }} - ({{ item.id }})</span>
                                 </label>
                             </div>
                         </div>
@@ -170,7 +207,7 @@ const removeDatas = async () => {
                                         v-model="selectedAssigned"
                                         class="form-checkbox h-5 w-5 text-blue-600 rounded border-gray-300"
                                     >
-                                    <span class="text-gray-700">{{ item.name }}</span>
+                                    <span class="text-gray-700">{{ item.name }} - ({{ item.id }})</span>
                                 </label>
                             </div>
                         </div>

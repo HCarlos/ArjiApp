@@ -1,3 +1,20 @@
+@import 'datatables.net-dt/css/dataTables.dataTables.min.css';
+@import "/node_modules/select2/dist/css/select2.css";
+
+@layer components {
+
+    .dataTables_wrapper {
+        @apply overflow-x-auto;
+    }
+
+    .dataTables_filter input {
+        @apply border rounded px-2 py-1 ml-2;
+    }
+
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+

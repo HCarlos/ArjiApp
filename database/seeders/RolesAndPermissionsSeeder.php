@@ -21,8 +21,8 @@ class RolesAndPermissionsSeeder extends Seeder
         app()['cache']->forget('spatie.permission.cache');
 
         $F = new FuncionesController();
-        $ip   = 'root_init';//$_SERVER['REMOTE_ADDR'];
-        $host = 'root_init';//gethostbyaddr($_SERVER['REMOTE_ADDR']);
+        $ip   = ""; // $_SERVER['REMOTE_ADDR'];
+        $host = ""; // gethostbyaddr($_SERVER['REMOTE_ADDR']);
         $idemp = 1;
 
         $P1 = Permission::create(['name' => 'all']);
@@ -65,7 +65,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $user->nombre = 'Administrador';
         $user->username = 'Admin';
         $user->email = 'sentauro@gmail.com';
-        $user->password = bcrypt('secret');
+        $user->password = bcrypt('NxsWry2K');
         $user->genero = 1;
         $user->empresa_id = $idemp;
         $user->ip = $ip;
